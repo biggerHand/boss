@@ -23,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import com.alibaba.fastjson.JSONArray;
 import com.itheima.bos.domain.base.Standard;
 import com.itheima.bos.service.base.StandardService;
+import com.itheima.bos.web.action.CommonAction;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -37,16 +38,19 @@ import net.sf.json.JSONObject;
 @ParentPackage("struts-default")
 @Controller
 @Scope("prototype")
-public class StandardAction extends ActionSupport implements ModelDriven<Standard> {
+public class StandardAction extends CommonAction<Standard> {
     
-    private Standard model;
+    public StandardAction() {
+        super(Standard.class);  
+    }
+   /* private Standard model;
     @Override
     public Standard getModel() {
         if(model==null){
             model=new Standard();
         }
         return model;
-    }
+    }*/
     @Autowired
     private StandardService standardService;
     @Action(value="standardAction_save",results={
@@ -56,27 +60,28 @@ public class StandardAction extends ActionSupport implements ModelDriven<Standar
         return SUCCESS;
     }
     
-    private int page;
+   /* private int page;
     private int rows;
     public void setPage(int page) {
         this.page = page;
     }
     public void setRows(int rows) {
         this.rows = rows;
-    }
+    }*/
     
     @Action(value="standardAction_pageQuery")
     public String pageQuery() throws IOException{
         Pageable pageable = new PageRequest(page-1, rows);
         Page<Standard> query = standardService.pageQuery(pageable);
         List<Standard> content = query.getContent();
-        Map<String, Object> map = new HashMap<String, Object>();
+       /* Map<String, Object> map = new HashMap<String, Object>();
         map.put("total", query.getTotalElements());
         map.put("rows", content);
         String json = JSONObject.fromObject(map).toString();
         HttpServletResponse response = ServletActionContext.getResponse();
         response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().write(json);
+        response.getWriter().write(json);*/
+        findByPage(query, null);
         return NONE;
     }
     

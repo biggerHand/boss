@@ -2,6 +2,7 @@ package com.itheima.bos.web.action;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +21,7 @@ import com.itheima.bos.domain.base.Courier;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 
@@ -53,21 +55,40 @@ public class CommonAction<T> extends ActionSupport implements ModelDriven<T> {
     public void setRows(int rows) {
         this.rows = rows;
     }
-    public void findByPage(Page<Courier> findByPage,String jsonCf){
+    public void findByPage(Page<T> findByPage,JsonConfig jsonConfig){
         Map<String, Object> map = new HashMap<>();
         map.put("total", findByPage.getTotalElements());
         map.put("rows", findByPage.getContent());
 
-        JsonConfig jsonConfig = new JsonConfig();
-        jsonConfig.setExcludes(new String[] {"fixedAreas", jsonCf});
-
-        String json = JSONObject.fromObject(map, jsonConfig).toString();
+        /*JsonConfig jsonConfig = new JsonConfig();
+        jsonConfig.setExcludes(new String[] {"fixedAreas", jsonCf});*/
+        String json ;
+        if(jsonConfig==null){
+            json = JSONObject.fromObject(map).toString();
+        }else{
+            json = JSONObject.fromObject(map, jsonConfig).toString();
+        }
         HttpServletResponse response = ServletActionContext.getResponse();
         response.setContentType("application/json;charset=UTF-8");
         try {
             response.getWriter().write(json);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    public void list2json(List<T> list,JsonConfig jsonConfig){
+        String json;
+        if(jsonConfig!=null){
+            json = JSONArray.fromObject(list,jsonConfig).toString();
+        }else{
+            json = JSONArray.fromObject(list).toString();
+        }
+        HttpServletResponse response = ServletActionContext.getResponse();
+        response.setContentType("application/json;charset=UTF-8");
+        try {
+            response.getWriter().write(json);
+        } catch (IOException e) {
+            e.printStackTrace();  
         }
     }
 }

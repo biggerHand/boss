@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.boot.model.IdGeneratorStrategyInterpreter.GeneratorNameDeterminationContext;
+
 /**
  * @description:地域信息实体类，主要包含 省市区(县)
  */
@@ -100,7 +102,12 @@ public class Area {
     public void setSubareas(Set<SubArea> subareas) {
         this.subareas = subareas;
     }
-
+    
+    
+    public String getName(){
+        return province + city + district;
+    }
+    
     @Override
     public String toString() {
         return "Area [id=" + id + ", province=" + province + ", city=" + city
