@@ -76,7 +76,7 @@ public class CommonAction<T> extends ActionSupport implements ModelDriven<T> {
             e.printStackTrace();
         }
     }
-    public void list2json(List<T> list,JsonConfig jsonConfig){
+    public void list2json(List list,JsonConfig jsonConfig){
         String json;
         if(jsonConfig!=null){
             json = JSONArray.fromObject(list,jsonConfig).toString();

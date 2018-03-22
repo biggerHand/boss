@@ -35,6 +35,7 @@ import com.itheima.utils.PinYin4jUtils;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
+import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 
 /**  
@@ -106,7 +107,9 @@ public class AreaAction extends CommonAction<Area> {
         Pageable pageable = new PageRequest(page-1, rows);
         Page<Area> query = areaService.pageQuery(pageable);
         List<Area> content = query.getContent();
-        findByPage(query, null);
+        JsonConfig jsonConfig = new JsonConfig();
+        jsonConfig.setExcludes(new String[]{"subareas"});
+        findByPage(query, jsonConfig);
         return NONE;
     }
     

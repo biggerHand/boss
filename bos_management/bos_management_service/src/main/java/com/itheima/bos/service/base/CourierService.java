@@ -23,5 +23,7 @@ public interface CourierService {
 
     Page<Courier> findByPage(Pageable pageable);
 
+    List<Courier> findNoDeltag();
+
 }
   

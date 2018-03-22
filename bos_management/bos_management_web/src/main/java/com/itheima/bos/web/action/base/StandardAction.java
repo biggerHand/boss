@@ -53,6 +53,7 @@ public class StandardAction extends CommonAction<Standard> {
     }*/
     @Autowired
     private StandardService standardService;
+    
     @Action(value="standardAction_save",results={
             @Result(location="/pages/base/standard.html",name="success",type="redirect")})
     public String save(){

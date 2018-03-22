@@ -32,6 +32,7 @@ import com.itheima.bos.service.base.CourierService;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 import net.sf.json.util.JSONUtils;
@@ -64,6 +65,23 @@ public class CourierAction extends ActionSupport implements ModelDriven<Courier>
         courierService.save(model);
         return SUCCESS;
     }
+    
+    @Action(value = "courierAction_findNoDeltag")
+    public String findNoDeltag() {
+        List<Courier> list = courierService.findNoDeltag();
+        JsonConfig jsonConfig = new JsonConfig();
+        jsonConfig.setExcludes(new String[] {"fixedAreas", "takeTime","standard"});
+        
+        String json = JSONArray.fromObject(list, jsonConfig).toString();
+        HttpServletResponse response = ServletActionContext.getResponse();
+        response.setContentType("application/json;charset=UTF-8");
+        try {
+            response.getWriter().write(json);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return NONE;
+    }
 
     private int page;
     private int rows;
@@ -75,7 +93,7 @@ public class CourierAction extends ActionSupport implements ModelDriven<Courier>
     public void setRows(int rows) {
         this.rows = rows;
     }
-
+   
     @Action(value = "courierAction_findByPage")
     public String findByPage() {
        

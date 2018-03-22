@@ -42,6 +42,12 @@ public class CourierServiceImpl implements com.itheima.bos.service.base.CourierS
     public Page<Courier> findByPage(Pageable pageable) {
         return courierRepository.findAll(pageable);
     }
+
+    @Override
+    public List<Courier> findNoDeltag() {
+          
+        return courierRepository.findByDeltagIsNull();
+    }
     
 }
   
