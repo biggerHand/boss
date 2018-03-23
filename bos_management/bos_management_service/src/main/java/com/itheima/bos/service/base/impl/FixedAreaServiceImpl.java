@@ -8,10 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.itheima.bos.dao.base.CourierRepository;
 import com.itheima.bos.dao.base.FixedAreaRepository;
+import com.itheima.bos.dao.base.SubAreaRepository;
 import com.itheima.bos.dao.base.TakeTimeRepository;
 import com.itheima.bos.domain.base.Courier;
 import com.itheima.bos.domain.base.FixedArea;
 import com.itheima.bos.domain.base.Standard;
+import com.itheima.bos.domain.base.SubArea;
 import com.itheima.bos.domain.base.TakeTime;
 import com.itheima.bos.service.base.CourierService;
 import com.itheima.bos.service.base.FixedAreaService;
@@ -43,6 +45,15 @@ public class FixedAreaServiceImpl implements FixedAreaService {
         TakeTime takeTime = takeTimeRepository.findOne(taketakeTimeId);
         courier.setTakeTime(takeTime);
         fixedArea.getCouriers().add(courier);
+    }
+    @Autowired
+    private SubAreaRepository subAreaRepository;
+    @Override
+    public void associationSubAreaToFixedArea(Long courierId, Long id) {
+          SubArea subArea = subAreaRepository.findOne(courierId);
+          FixedArea fixedArea = fixedAreaRepository.findOne(id);
+          subArea.setFixedArea(fixedArea);
+        
     }
 }
   

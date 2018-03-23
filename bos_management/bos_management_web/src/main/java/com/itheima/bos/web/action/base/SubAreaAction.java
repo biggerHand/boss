@@ -3,6 +3,7 @@ package com.itheima.bos.web.action.base;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -20,6 +21,8 @@ import com.itheima.bos.domain.base.SubArea;
 import com.itheima.bos.service.base.SubAreaService;
 import com.itheima.bos.web.action.CommonAction;
 import com.itheima.utils.PinYin4jUtils;
+
+import net.sf.json.JsonConfig;
 
 /**  
  * ClassName:SubAreaAction <br/>  
@@ -73,6 +76,22 @@ public class SubAreaAction extends CommonAction<SubArea> {
         } catch (Exception e) {
             e.printStackTrace();  
         }
+        return SUCCESS;
+    }
+    
+    @Action(value="subAreaAction_findAll")
+    public String findAll(){
+        List<SubArea> list = subAreaService.findAll();
+        JsonConfig jsonConfig = new JsonConfig();
+        jsonConfig.setExcludes(new String[]{"area","fixedArea"});
+        list2json(list, jsonConfig);
+        return NONE;
+    }
+    
+    @Action(value="subareaAction_save",results={
+            @Result(location="/pages/base/sub_area.html",name="success",type="redirect")})
+    public String save(){
+        subAreaService.save(model);
         return SUCCESS;
     }
 }

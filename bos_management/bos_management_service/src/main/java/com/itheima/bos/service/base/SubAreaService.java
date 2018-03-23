@@ -1,6 +1,7 @@
 package com.itheima.bos.service.base;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.itheima.bos.domain.base.SubArea;
 
@@ -12,6 +13,10 @@ import com.itheima.bos.domain.base.SubArea;
 public interface SubAreaService {
 
     void save(ArrayList<SubArea> list);
+
+    List<SubArea> findAll();
+
+    void save(SubArea model);
 
 }
   

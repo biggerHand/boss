@@ -298,7 +298,18 @@
 				
 			}
 			function fixedArea2Area() {
+				var rows = $("#grid").datagrid('getSelections');
+				if(rows.length==1){
+					$('#subAreaWindow').window('open');
+				}else{
+					$.messager.alert("警告","关联分区,只能（必须）选择一个定区","warning")
+				}
 				
+			}
+			function submitSubAreaWindows() {
+				var rows = $("#grid").datagrid('getSelections');
+				$("#courierFixedAreaId").val(rows[0].id);
+				$("#subAreaForm").submit()
 			}
 			function subCourierWind() {
 				var rows = $("#grid").datagrid('getSelections');
@@ -431,34 +442,34 @@
 			</div>
 		</div>
 		<!-- 关联分区窗口 -->
-		<!-- <div modal="true" class="easyui-window" title="关联客户窗口" id="areaWindow" collapsible="false" closed="true" minimizable="false" maximizable="false" style="top:20px;left:200px;width: 400px;height: 300px;">
+		<div class="easyui-window" title="关联快递员窗口" id="subAreaWindow" modal="true"
+			collapsible="false" closed="true" minimizable="false" maximizable="false" style="top:20px;left:200px;width: 700px;height: 300px;">
 			<div style="overflow:auto;padding:5px;" border="false">
-				<form id="customerForm" action="../../fixedAreaAction_assignCustomers2FixedArea.action" method="post">
+				<form id="subAreaForm" 
+					action="../../fixedAreaAction_associationSubAreaToFixedArea.action" method="post">
 					<table class="table-edit" width="80%" align="center">
 						<tr class="title">
-							<td colspan="3">关联客户</td>
-						</tr>
+							<td colspan="2">关联分区</td>
+						</tr> 
 						<tr>
+							<td>选择分区</td>
 							<td>
-								<input type="hidden" name="id" id="customerFixedAreaId" />
-								<select id="noassociationSelect" multiple="multiple" size="10"></select>
-							</td>
-							<td>
-								<input type="button" value="》》" id="toRight" onclick="moveCRight()">
-								<br/>
-								<input type="button" value="《《" id="toLeft" onclick="moveCLeft()">
-							</td>
-							<td>
-								<select id="associationSelect" name="customerIds" multiple="multiple" size="10"></select>
+								<!-- 存放定区编号 -->
+								<input type="hidden" name="id" id="courierFixedAreaId" />
+								<!-- ../../courierAction_listajax.action -->
+								<input data-options="ditable:false, url:'../../subAreaAction_findAll.action',valueField:'id',textField:'keyWords'"
+									 type="text" name="courierId" class="easyui-combobox" required="true" />
 							</td>
 						</tr>
 						<tr>
-							<td colspan="3"><a id="associationBtn" href="#" onclick="subCusWind()" class="easyui-linkbutton" data-options="iconCls:'icon-save'">关联客户</a> </td>
+							<td colspan="3">
+								<a id="associationCourierBtn" href="#" onclick="submitSubAreaWindows()" class="easyui-linkbutton" data-options="iconCls:'icon-save'">关联分区</a>
+							 </td>
 						</tr>
 					</table>
 				</form>
 			</div>
-		</div> -->
+		</div>
 		<!-- 关联快递员窗口 -->
 		<div class="easyui-window" title="关联快递员窗口" id="courierWindow" modal="true"
 			collapsible="false" closed="true" minimizable="false" maximizable="false" style="top:20px;left:200px;width: 700px;height: 300px;">

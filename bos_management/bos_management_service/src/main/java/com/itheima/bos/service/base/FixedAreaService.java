@@ -18,5 +18,7 @@ public interface FixedAreaService {
 
     void associationCourierToFixedArea(Long taketakeTimeId, Long courierId, Long id);
 
+    void associationSubAreaToFixedArea(Long courierId, Long id);
+
 }
   

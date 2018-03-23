@@ -61,6 +61,12 @@ public class CustomerServiceImpl implements CustomerService {
                         fixedAreaId);
             }
         }
-
     }
+
+    @Override
+    public void save(Customer customer) {
+          customerRepository.save(customer);
+    }
+    
+    
 }

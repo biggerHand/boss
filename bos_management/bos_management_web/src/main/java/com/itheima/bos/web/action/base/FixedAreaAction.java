@@ -52,6 +52,13 @@ public class FixedAreaAction extends CommonAction<FixedArea> {
         this.courierId = courierId;
     }
     
+    @Action(value="fixedAreaAction_associationSubAreaToFixedArea",results = {
+            @Result(name = "success", location = "/pages/base/fixed_area.html", type = "redirect")})
+    public String associationSubAreaToFixedArea(){
+        fixedAreaService.associationSubAreaToFixedArea(courierId,model.getId());
+        return SUCCESS;
+    }
+    
     @Action(value = "fixedAreaAction_associationCourierToFixedArea", results = {
             @Result(name = "success", location = "/pages/base/fixed_area.html", type = "redirect")})
     public String associationCourierToFixedArea() {
