@@ -148,6 +148,8 @@
 			<artifactId>spring-data-redis</artifactId>
 			<version>${springdataredis.version}</version>
 		</dependency>
+		
+		
 
 		<!-- oracle数据库驱动，需要手动安装 -->
 		<dependency>

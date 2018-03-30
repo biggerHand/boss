@@ -67,6 +67,11 @@ public class CustomerServiceImpl implements CustomerService {
     public void save(Customer customer) {
           customerRepository.save(customer);
     }
+
+    @Override
+    public String findFixedAreaIdByAddress(String address) {
+        return customerRepository.findFixedAreaIdByAddress(address);
+    }
     
     
 }

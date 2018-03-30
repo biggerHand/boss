@@ -50,4 +50,8 @@ public interface CustomerService {
     @Path("/save")
     void save(Customer customer);
     
+    @GET
+    @Path("/findFixedAreaIdByAddress")
+    String findFixedAreaIdByAddress(@QueryParam("address") String address); 
+    
 }

@@ -76,7 +76,7 @@
 					}
 				}
 			}, {
-				field : 'arrivecity',
+				field : 'arriveCity',
 				title : '到达地',
 				width : 120,
 				align : 'center',
@@ -87,8 +87,8 @@
 					}
 				}
 			},{
-				field : 'product',
-				title : '产品',
+				field : 'goodsType',
+				title : '产品类型',
 				width : 120,
 				align : 'center',
 				editor :{
@@ -151,8 +151,14 @@
 					columns : columns,
 					onDblClickRow : doDblClickRow,
 					onAfterEdit : function(rowIndex, rowData, changes){
-						console.info(rowData);
-						editIndex = undefined;
+						var mes = $.post("../../waybillAction_saveWayBill.action",rowData,function(result){
+							if(result=='1'){
+								$.messager.alert("提示","录入失败,请检查数据","warning")
+							}
+						} );
+						if(mes){
+							$.messager.alert("提示","录入失败,请检查数据","warning")
+						}
 					}
 				});
 			});
